@@ -1,3 +1,4 @@
+import { isArrayOf, isObjectOf, isString } from "unknownutil";
 import { fetchBrands } from "./erogamescape.ts";
 
 async function isAlive(url: string): Promise<false | string> {
@@ -22,8 +23,17 @@ async function isAlive(url: string): Promise<false | string> {
 }
 
 async function getBrands(): Promise<{ name: string; url: string }[]> {
+  const file = "./cache/brands_all.json";
   try {
-    return JSON.parse(await Deno.readTextFile("./cache/brands_all.json"));
+    const isBrand = isArrayOf(isObjectOf({
+      name: isString,
+      url: isString,
+    }));
+    const brands = JSON.parse(await Deno.readTextFile(file)) as unknown;
+    if (!isBrand(brands)) {
+      throw new Error(`Invalid JSON: ${file}`);
+    }
+    return brands;
   } catch (e) {
     if (e.code !== "ENOENT") {
       throw e;
@@ -33,7 +43,7 @@ async function getBrands(): Promise<{ name: string; url: string }[]> {
       minMedian: 60,
       since: "2010-01-01",
     });
-    await Deno.writeTextFile("./cache/brands_all.json", JSON.stringify(brands));
+    await Deno.writeTextFile(file, JSON.stringify(brands));
     return brands;
   }
 }

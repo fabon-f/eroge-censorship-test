@@ -2,7 +2,8 @@
   "imports": {
     "std/": "https://deno.land/std@0.203.0/",
     "std/assert": "https://deno.land/std@0.203.0/assert/mod.ts",
-    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.41/"
+    "deno_dom/": "https://deno.land/x/deno_dom@v0.1.41/",
+    "unknownutil": "https://deno.land/x/unknownutil@v3.9.0/mod.ts"
   },
   "tasks": {
     "prepare": "deno run --allow-write --allow-read --allow-net prepare.ts"
