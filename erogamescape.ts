@@ -73,5 +73,11 @@ export async function fetchBrands(opt: BrandOptions = {}) {
     INNER JOIN gamelist ON brandlist.id = gamelist.brandname
     WHERE ${whereClauses.join(" AND ")}
   `.trim();
-  return await query(sql);
+  const records = await query(sql);
+  return records.map((r) => {
+    return {
+      name: r["brandname"],
+      url: r["url"],
+    };
+  });
 }
