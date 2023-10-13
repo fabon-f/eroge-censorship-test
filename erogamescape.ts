@@ -77,7 +77,7 @@ export async function fetchBrands(opt: BrandOptions = {}) {
   return records.map((r) => {
     return {
       name: r["brandname"],
-      url: r["url"],
+      url: new URL(r["url"]).toString(),
     };
   });
 }
