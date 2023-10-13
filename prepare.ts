@@ -1,4 +1,4 @@
-import { isArrayOf, isObjectOf, isString } from "unknownutil";
+import { Brands, isBrands } from "./types.ts";
 import { fetchBrands } from "./erogamescape.ts";
 
 async function isAlive(url: string): Promise<false | string> {
@@ -22,15 +22,11 @@ async function isAlive(url: string): Promise<false | string> {
   return response.url;
 }
 
-async function getBrands(): Promise<{ name: string; url: string }[]> {
+async function getBrands(): Promise<Brands> {
   const file = "./cache/brands_all.json";
   try {
-    const isBrand = isArrayOf(isObjectOf({
-      name: isString,
-      url: isString,
-    }));
     const brands = JSON.parse(await Deno.readTextFile(file)) as unknown;
-    if (!isBrand(brands)) {
+    if (!isBrands(brands)) {
       throw new Error(`Invalid JSON: ${file}`);
     }
     return brands;
