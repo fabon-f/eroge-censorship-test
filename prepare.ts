@@ -19,6 +19,11 @@ async function isAlive(url: string): Promise<false | string> {
     clearTimeout(timer);
   }
 
+  if (new URL(url).host.endsWith("dmm.co.jp")) {
+    // skip age check page
+    return url;
+  }
+
   return response.url;
 }
 
