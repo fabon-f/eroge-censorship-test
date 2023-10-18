@@ -6,6 +6,7 @@
     "unknownutil": "https://deno.land/x/unknownutil@v3.9.0/mod.ts"
   },
   "tasks": {
-    "prepare": "deno run --allow-write --allow-read --allow-net prepare.ts"
+    "prepare": "deno run --allow-write --allow-read --allow-net prepare.ts",
+    "check": "deno run --allow-write --allow-read --allow-net check.ts"
   }
 }
